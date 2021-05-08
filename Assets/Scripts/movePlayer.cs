@@ -6,6 +6,8 @@ public class movePlayer : MonoBehaviour
 {
     Rigidbody rb;
     public float thrustSpeed;
+    public ParticleSystem particleThrust;
+
     public float rotationThrust;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,15 @@ public class movePlayer : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space)){
             rb.AddRelativeForce(new Vector3(0,1,0)*thrustSpeed*Time.deltaTime);
+            if(!particleThrust.isPlaying){
+            particleThrust.Play();
+            }
         }
+        else{
+            particleThrust.Stop();
+
+        }
+
         float rot = Input.GetAxis("Horizontal");
         if(rot != 0){
             rb.freezeRotation = true;

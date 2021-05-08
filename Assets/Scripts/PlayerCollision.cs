@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {   
+    public ParticleSystem particleFinish;
+    public ParticleSystem particleCrash;
     public float delayStart;
-    bool isTransitioning  = false;
     public AudioClip audioCrash;
     public AudioClip audioFinish;
+    bool isTransitioning  = false;
     AudioSource audioSource;
+
 
     private void Start() {
         audioSource= GetComponent<AudioSource>();
@@ -33,7 +36,7 @@ public class PlayerCollision : MonoBehaviour
 
     void Crash(){
         isTransitioning=true;   
-
+        particleCrash.Play();
         GetComponent<movePlayer>().enabled = false;
               audioSource.PlayOneShot(audioCrash);
 
@@ -42,7 +45,7 @@ public class PlayerCollision : MonoBehaviour
     }
     void NextLevel(){
         isTransitioning=true;   
-
+        particleFinish.Play();
         GetComponent<movePlayer>().enabled = false;
       audioSource.PlayOneShot(audioFinish);
         Invoke("LoadNextScene",delayStart);
